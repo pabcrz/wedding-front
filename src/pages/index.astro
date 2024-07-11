@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+---
+
+<BaseLayout title="Carlos y Arely">
+  <main class="w-full h-full">
+    <Header />
+    <p class="text-black hidden md:block text-center">
+      ¡Estamos felices de poder compartir con ustedes este momento tan especial
+      para nosotros!
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  p {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+  }
+</style>

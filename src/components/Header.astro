@@ -1,0 +1,41 @@
+---
+import Galery from "../components/Galery.astro";
+---
+
+<section
+  class="flex h-full md:h-auto w-full bg-mainBG text-mainFont p-4 justify-center relative"
+>
+  <header
+    class="w-full sm:w-[70%] md:w-full h-full xl:max-w-[1200px] items-center flex flex-col"
+  >
+    <h1 class="font-medium text-3xl py-4">Nuestra Boda</h1>
+    <div
+      class="flex flex-col-reverse items-center justify-evenly h-[70%] md:flex-row w-full py-6"
+    >
+      <Galery />
+      <div class="text-center md:w-[60%] p-4 flex flex-col-reverse md:flex-col">
+        <p class="self-center place-self-start">12.10.2024 - 14:00 hrs</p>
+        <h2
+          class="self-center place-content-evenly font-normal text-5xl md:text-6xl py-6"
+        >
+          Carlos y Arely
+        </h2>
+      </div>
+    </div>
+    <p class="text-black md:hidden text-center">
+      ¡Estamos felices de poder compartir con ustedes este momento tan especial
+      para nosotros!
+    </p>
+  </header>
+  <button
+    class="text-white bg-mainFont p-2 px-4 h-11 rounded font-bold absolute bottom-5 md:top-7 md:right-5"
+    >Confirmar asistencia</button
+  >
+</section>
+
+<style>
+  button,
+  p {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+  }
+</style>
