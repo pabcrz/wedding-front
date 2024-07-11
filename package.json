@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/react": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vercel": "^7.7.2",
     "@fontsource-variable/domine": "^5.0.19",
     "@fontsource/zen-kaku-gothic-new": "^5.0.19",
     "@types/react": "^18.3.3",
