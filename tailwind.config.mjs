@@ -6,6 +6,7 @@ export default {
       colors: {
         mainFont: "#CB5E20",
         mainBG: "#DBE9DF",
+        secondaryBG: "#DEDEBE",
         secondaryFont: "#09391B",
       },
     },
