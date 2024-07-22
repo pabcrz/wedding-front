@@ -1,7 +1,12 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Guests from "./api/Guests";
 console.log("HOlaaa");
 ---
 
-<h1>Hola desde Asistencia</h1>
-<Guests client:only="react" />
+<BaseLayout title="Confirmar Asistencia">
+  <main class="flex flex-col">
+    <h1 class="text-center text-5xl">Confirmar mi asistencia</h1>
+    <Guests client:only="react" />
+  </main>
+</BaseLayout>
