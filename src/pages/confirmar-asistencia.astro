@@ -1,12 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Guests from "./api/Guests";
-console.log("HOlaaa");
+import Header from "../components/Header.astro";
 ---
 
 <BaseLayout title="Confirmar Asistencia">
-  <main class="flex flex-col">
-    <h1 class="text-center text-5xl">Confirmar mi asistencia</h1>
-    <Guests client:only="react" />
+  <main class="flex flex-col w-full h-dvh items-center">
+    <section class="w-full bg-mainBG text-center text-mainFont">
+      <h1 class="font-medium text-2xl p-4 md:text-4xl">Nuestra Boda</h1>
+      <div
+        class="flex flex-col-reverse items-center justify-evenly md:flex-row w-full py-6"
+      >
+        <div class="text-center p-4 flex flex-col-reverse md:flex-col">
+          <p class="self-center place-self-start">12.10.2024 - 14:00 hrs</p>
+          <h2
+            class="self-center place-content-evenly font-normal text-4xl md:text-6xl py-6"
+          >
+            Carlos y Arely
+          </h2>
+        </div>
+      </div>
+    </section>
+    <section class="p-4 w-full md:max-w-[1200px] h-full flex flex-col">
+      <h1 class="text-center text-3xl pb-3 text-secondaryFont">
+        Confirmar Asistencia
+      </h1>
+      <Guests client:only="react" />
+    </section>
   </main>
 </BaseLayout>

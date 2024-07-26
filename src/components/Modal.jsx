@@ -1,0 +1,82 @@
+export default function Modal({
+  open,
+  onClose,
+  guest,
+  onConfirm,
+  onAsistencia,
+}) {
+  function handleNo() {
+    onClose();
+    onConfirm();
+    guest.asistencia = "no";
+    console.log(`${guest.fullName} ${guest.asistencia} asistira`);
+  }
+
+  function handleYes() {
+    onClose();
+    onConfirm();
+    guest.asistencia = "si";
+    console.log(`${guest.fullName} ${guest.asistencia} asistira`);
+  }
+
+  return (
+    // backdrop
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
+      className={`
+        fixed inset-0 flex justify-center items-center transition-colors
+        ${open ? "visible bg-black/30" : "invisible"}
+      `}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`
+          bg-white rounded-xl p-6 transition-all
+          ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
+        `}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 hover:bg-gray-200"
+        >
+          <img
+            src="./src/icons/Close.svg"
+            alt="close icon"
+            className="size-5"
+          />
+        </button>
+        <div className="text-center w-56">
+          <div className="mx-auto py-4 w-48">
+            <h3 className="text-lg font-black text-mainFont">
+              ¡Hola, {guest.fullName}!
+            </h3>
+            {/* <p className="text-lg">
+              <strong>Familia:</strong> {guest.Familia}
+            </p>
+            <p className="text-lg">
+              <strong>-Categoria:</strong> {guest.Categoria}
+            </p> */}
+            <p className="text-sm">¿Asistiras a nuestra boda?</p>
+          </div>
+          <div className="flex gap-4">
+            <button
+              className="w-full hover:bg-red-400 rounded hover:text-white"
+              onClick={handleNo}
+            >
+              No
+            </button>
+            <button
+              className="w-full hover:bg-mainBG p-2 rounded hover:text-secondaryFont"
+              onClick={handleYes}
+            >
+              Si
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
