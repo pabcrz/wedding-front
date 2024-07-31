@@ -21,3 +21,16 @@ export function addGuest(guest) {
     }),
   });
 }
+
+export function updateGuest(guest) {
+  return fetch(`${API_URL}/guests/${guest.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: guest.name,
+      lastName: guest.lastName,
+    }),
+  });
+}

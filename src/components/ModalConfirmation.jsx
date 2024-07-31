@@ -37,19 +37,19 @@ export default function ModalConfirmation({ open, onClose, guest }) {
             className="size-5"
           />
         </button>
-        <div className="text-center w-56">
-          <div className="mx-auto py-4 w-48">
-            <h3 className="text-lg font-black text-mainFont">
+        <div className="text-center w-80">
+          <div className="mx-auto py-4 w-full">
+            <p className="text-xl font-semibold pb-4 text-secondaryFont">
               {guest.asistencia === "si"
                 ? "¡Nos vemos en la boda!"
-                : "¡Lo sentimos!"}
-            </h3>
+                : `Lamentamos que no puedas acompañarnos, ${guest.Nombre}.`}
+            </p>
             {guest.asistencia === "si" && (
               <p className="text-lg">
                 <strong>Boleto:</strong> {guest.Categoria}
               </p>
             )}
-            <p className="text-sm">¿Deseas confirmar a otro invitado?</p>
+            <p className="text-lg">¿Deseas confirmar a otro invitado?</p>
           </div>
           <div className="flex gap-4">
             <button

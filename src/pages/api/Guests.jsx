@@ -23,9 +23,6 @@ export default function Guests() {
 
     connection()
       .then((data) => {
-        data.data.guests.map(
-          (guest) => (guest.fullName = `${guest.Nombre} ${guest.Apellido}`)
-        );
         setGuests(data.data.guests);
         console.log(data.data.guests);
         // toast.success("Invitados disponibles.");
@@ -68,18 +65,19 @@ export default function Guests() {
       <Toaster richColors position="bottom-right" />
       <div className="max-w-[1200px] flex flex-col md:flex-row justify-center items-center gap-3">
         <label htmlFor="searhc" className="px-2 text-xl">
-          Ingresa tu nombre:
+          Buscar nombre:
         </label>
         <input
           name="search"
           type="text"
           value={search}
           onChange={handleSearch}
+          placeholder="Ingresa tu nombre"
           className="border-2 rounded border-mainBG focus:outline-none px-2"
         />
       </div>
-      <p className="text-2xl py-4">Selecciona tu nombre: </p>
-      <div className="flex flex-wrap gap-3 py-4 p-2 shadow-lg min-h-10">
+      <p className="text-2xl p-4">Selecciona tu nombre: </p>
+      <div className="flex flex-col md:flex-row md:flex-wrap gap-3 py-4 p-2 shadow-lg min-h-10 rounded-lg overflow-y-scroll">
         {search &&
           search.length >= 1 &&
           newGuests.map((elementGuest, i) => {
@@ -88,7 +86,7 @@ export default function Guests() {
                 href="#"
                 key={i}
                 onClick={() => handleClick(elementGuest)}
-                className=" border border-mainBG hover:border-mainFont rounded px-3 hover:text-mainFont p-1 "
+                className="border hover:border-mainFont rounded-md px-3 hover:text-mainFont p-1 "
               >
                 <p className="font-bold text-xl">{elementGuest.fullName}</p>
               </a>
