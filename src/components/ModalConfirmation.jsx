@@ -1,3 +1,5 @@
+import ShowLocation from "./ShowLocation";
+
 export default function ModalConfirmation({ open, onClose, guest }) {
   function handleNo() {
     onClose();
@@ -23,7 +25,7 @@ export default function ModalConfirmation({ open, onClose, guest }) {
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
-          bg-white rounded-xl p-6 transition-all
+          bg-white rounded-xl py-4 transition-all max-h-dvh overflow-y-scroll md:overflow-auto
           ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
         `}
       >
@@ -32,26 +34,29 @@ export default function ModalConfirmation({ open, onClose, guest }) {
           className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 hover:bg-gray-200"
         >
           <img
-            src="./src/icons/Close.svg"
+            src="./src/icons/close.svg"
             alt="close icon"
             className="size-5"
           />
         </button>
-        <div className="text-center w-80">
+        <div className="text-center w-auto flex flex-col items-center">
           <div className="mx-auto py-4 w-full">
-            <p className="text-xl font-semibold pb-4 text-secondaryFont">
+            <p className="text-2xl font-semibold text-secondaryFont">
               {guest.asistencia === "si"
-                ? "¡Nos vemos en la boda!"
-                : `Lamentamos que no puedas acompañarnos, ${guest.Nombre}.`}
+                ? `¡Nos vemos en la boda, ${guest.fullName}!`
+                : `Lamentamos que no puedas acompañarnos, ${guest.fullName}.`}
             </p>
             {guest.asistencia === "si" && (
-              <p className="text-lg">
-                <strong>Boleto:</strong> {guest.Categoria}
-              </p>
+              <>
+                <ShowLocation />
+                <p className="text-lg pt-2">
+                  <strong>Boleto:</strong> {guest.categoria.toLowerCase()}
+                </p>
+              </>
             )}
             <p className="text-lg">¿Deseas confirmar a otro invitado?</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 w-1/2">
             <button
               className="w-full hover:bg-red-400 rounded hover:text-white"
               onClick={handleNo}

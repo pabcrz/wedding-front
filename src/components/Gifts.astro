@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import amazon from "../images/amazon.svg";
-import liverpool from "../images/liverpool-logo.svg";
+import amazon from "../icons/amazon.svg";
+import liverpool from "../icons/liverpool-logo.svg";
 ---
 
 <section class="bg-secondaryBG w-full p-4">
@@ -9,33 +9,21 @@ import liverpool from "../images/liverpool-logo.svg";
     Mesa de regalos
   </h2>
   <div
-    class="flex md:gap-40 md:justify-center flex-col md:flex-row items-center"
+    class="flex md:gap-40 md:justify-center flex-col md:flex-row items-center pb-6"
   >
     <a
       href="https://www.amazon.com.mx/wedding/share/Carlosyarely"
       target="_blank"
+      class="hover:opacity-60"
     >
-      <Image
-        src={amazon}
-        alt="Amazon logo"
-        height={150}
-        class="hover:opacity-60"
-      />
+      <Image src={amazon} alt="Amazon logo" height={150} />
     </a>
     <a
-      href="
-        https:
-        mesaderegalos.liverpool.com.mx
-        milistaderegalos
-        51484230"
+      href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/51484230"
       target="_blank"
+      class="hover:opacity-60"
     >
-      <Image
-        src={liverpool}
-        alt="Liverpool logo"
-        height={50}
-        class="hover:opacity-60 pb-6"
-      />
+      <Image src={liverpool} alt="Liverpool logo" height={50} />
     </a>
   </div>
 </section>

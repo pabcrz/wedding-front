@@ -1,8 +1,8 @@
-import { connection } from "./data";
+import { connection } from "../pages/api/data";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
-import Modal from "../../components/Modal";
-import ModalConfirmation from "../../components/ModalConfirmation";
+import Modal from "./Modal";
+import ModalConfirmation from "./ModalConfirmation";
 
 export default function Guests() {
   const [guests, setGuests] = useState([]);
@@ -77,7 +77,7 @@ export default function Guests() {
         />
       </div>
       <p className="text-2xl p-4">Selecciona tu nombre: </p>
-      <div className="flex flex-col md:flex-row md:flex-wrap gap-3 py-4 p-2 shadow-lg min-h-10 rounded-lg overflow-y-scroll">
+      <div className="flex flex-col md:flex-row md:flex-wrap gap-3 py-4 p-2 shadow-lg min-h-10 rounded-lg overflow-auto">
         {search &&
           search.length >= 1 &&
           newGuests.map((elementGuest, i) => {
