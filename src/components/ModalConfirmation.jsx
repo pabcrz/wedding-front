@@ -34,7 +34,7 @@ export default function ModalConfirmation({ open, onClose, guest }) {
           className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 hover:bg-gray-200"
         >
           <img
-            src="./src/icons/close.svg"
+            src="./public/icons/close.svg"
             alt="close icon"
             className="size-5"
           />

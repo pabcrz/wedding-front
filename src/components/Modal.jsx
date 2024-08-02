@@ -1,5 +1,4 @@
 import { useState } from "react";
-import closeIcon from "../icons/close.svg";
 
 export default function Modal({ open, onClose, guest, onConfirm }) {
   const [confirmation, setConfirmation] = useState(false);
@@ -72,7 +71,7 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
           className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 hover:bg-gray-200"
         >
           <img
-            src="./src/icons/close.svg"
+            src="./public/icons/close.svg"
             alt="close icon"
             className="size-5"
           />
