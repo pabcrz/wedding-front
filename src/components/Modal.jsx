@@ -111,8 +111,8 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
               <div className="flex-col">
                 <p className="text-lg">
                   Para confirmar que
-                  <strong> {guest.asistencia} asistirás</strong> escribe lo
-                  siguiente: "<strong>{writeName}</strong>"
+                  <strong> {asist} asistirás</strong> escribe lo siguiente: "
+                  <strong>{writeName}</strong>"
                 </p>
                 <form onSubmit={handleConfirm}>
                   <input
