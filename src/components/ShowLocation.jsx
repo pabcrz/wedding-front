@@ -18,11 +18,11 @@ export default function ShowLocation() {
           width="500"
           height="300"
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </section>
       <section className="bg-secondaryBG w-full p-4">
-        <h2 class="text-mainFont text-center font-medium text-3xl">
+        <h2 className="text-mainFont text-center font-medium text-3xl">
           Mesa de regalos
         </h2>
         <div className="flex md:justify-center flex-col md:flex-row items-center">

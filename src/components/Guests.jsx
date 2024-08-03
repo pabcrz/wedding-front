@@ -1,4 +1,4 @@
-import { connection } from "../pages/api/data";
+import { confirmGuest, connection } from "../pages/api/data";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import Modal from "./Modal";
@@ -33,9 +33,13 @@ export default function Guests() {
       });
   }, []);
 
-  const newGuests = guests.filter(
-    (guest) => normalizeName(guest.fullName).includes(normalizeName(search))
-    // guest.fullName.toLowerCase().includes(search.toLowerCase())
+  // guest.fullName.toLowerCase().includes(search.toLowerCase())
+
+  const confirmGuests = guests.filter(
+    (guest) => guest.asistencia === "sin confirmar"
+  );
+  const newGuests = confirmGuests.filter((guest) =>
+    normalizeName(guest.fullName).includes(normalizeName(search))
   );
 
   function handleSearch(event) {

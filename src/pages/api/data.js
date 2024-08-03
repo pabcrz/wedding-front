@@ -13,24 +13,24 @@ export function addGuest(guest) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: guest.name,
-      lastName: guest.lastName,
-      gender: guest.gender,
-      age: guest.age,
+      name: guest.nombre,
+      lastName: guest.apellido,
+      sexo: guest.sexo,
+      categoria: guest.categoria,
       family: guest.family,
     }),
   });
 }
 
-export function updateGuest(guest) {
-  return fetch(`${API_URL}/guests/${guest.id}`, {
-    method: "PUT",
+// para confimar asistencia
+export function confirmGuest(guest) {
+  return fetch(`${API_URL}/guests/${guest._id}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: guest.name,
-      lastName: guest.lastName,
+      asistencia: guest.asistencia,
     }),
   });
 }

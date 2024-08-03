@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast } from "sonner";
+import { confirmGuest } from "../pages/api/data";
 
 export default function Modal({ open, onClose, guest, onConfirm }) {
   const [confirmation, setConfirmation] = useState(false);
@@ -22,6 +24,13 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
   function handleConfirm(e) {
     e.preventDefault();
     if (normalizeName(confirmName) === writeName) {
+      toast.promise(confirmGuest(guest), {
+        loading: "Confirmando...",
+        success: (data) => {
+          return `Tu respuesta ha sido enviada...`;
+        },
+        error: "Error al enviar tu respuesta",
+      });
       console.log(`${guest.fullName} ${guest.asistencia} asistira`);
       handleClose();
       onConfirm();
