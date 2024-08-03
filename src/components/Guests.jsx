@@ -10,7 +10,6 @@ export default function Guests() {
   const [open, setOpen] = useState(false);
   const [guest, setGuest] = useState({});
   const [confirmation, setConfirmation] = useState(false);
-  const [asistencia, setAsistencia] = useState("");
 
   useEffect(() => {
     toast.promise(connection(), {
@@ -31,7 +30,7 @@ export default function Guests() {
         console.log(error);
         toast.error("Error al cargar los invitados.");
       });
-  }, []);
+  }, [confirmation]);
 
   // guest.fullName.toLowerCase().includes(search.toLowerCase())
 
@@ -83,16 +82,17 @@ export default function Guests() {
       <p className="text-2xl p-4">Selecciona tu nombre: </p>
       <div className="flex flex-col md:flex-row md:flex-wrap gap-3 py-4 p-2 shadow-lg min-h-10 rounded-lg overflow-auto">
         {search &&
-          search.length >= 1 &&
+          search.length >= 3 &&
           newGuests.map((elementGuest, i) => {
             return (
               <a
                 href="#"
                 key={i}
                 onClick={() => handleClick(elementGuest)}
-                className="border hover:border-mainFont rounded-md px-3 hover:text-mainFont p-1 "
+                className="border hover:border-mainFont rounded-md px-3 hover:text-mainFont p-1 md:w-[49%]"
               >
                 <p className="font-bold text-xl">{elementGuest.fullName}</p>
+                <p className="text-lg">Familia: {elementGuest.familia}</p>
               </a>
             );
           })}
@@ -100,7 +100,9 @@ export default function Guests() {
           open={open}
           onClose={() => setOpen(false)}
           guest={guest}
-          onConfirm={() => setConfirmation(true)}
+          onConfirm={() => {
+            setConfirmation(true);
+          }}
         ></Modal>
 
         <ModalConfirmation

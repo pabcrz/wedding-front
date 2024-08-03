@@ -6,32 +6,32 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
   const [confirmation, setConfirmation] = useState(false);
   const [writeName, setWriteName] = useState("");
   const [confirmName, setConfirmName] = useState("");
+  const [asist, setAsist] = useState("");
 
   function handleNo() {
     setConfirmation(true);
-    // onClose();
     setWriteName(normalizeName(guest.fullName));
-    guest.asistencia = "no";
+    setAsist("no");
   }
 
   function handleYes() {
     setConfirmation(true);
-    // onClose();
     setWriteName(normalizeName(guest.fullName));
-    guest.asistencia = "si";
+    setAsist("si");
   }
 
   function handleConfirm(e) {
     e.preventDefault();
-    if (normalizeName(confirmName) === writeName) {
+    if (confirmName === writeName) {
+      guest.asistencia = asist;
       toast.promise(confirmGuest(guest), {
         loading: "Confirmando...",
         success: (data) => {
+          console.log(`${guest.fullName} ${guest.asistencia} asistira`);
           return `Tu respuesta ha sido enviada...`;
         },
         error: "Error al enviar tu respuesta",
       });
-      console.log(`${guest.fullName} ${guest.asistencia} asistira`);
       handleClose();
       onConfirm();
     } else {
@@ -123,7 +123,6 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
                   <button
                     className="border border-mainFont text-mainFont hover:bg-mainFont p-2 rounded hover:text-white"
                     onClick={handleConfirm}
-                    onKeyDownCapture={handleConfirm}
                   >
                     Confirmar
                   </button>

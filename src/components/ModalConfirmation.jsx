@@ -35,9 +35,13 @@ export default function ModalConfirmation({ open, onClose, guest }) {
         >
           <img src="/icons/close.svg" alt="close icon" className="size-5" />
         </button>
-        <div className="text-center w-auto flex flex-col items-center">
-          <div className="mx-auto py-4 w-full">
-            <p className="text-2xl font-semibold text-secondaryFont px-4">
+        <div
+          className={`text-center flex flex-col items-center w-auto
+             ${guest.asistencia === "no" ? "max-w-[500px] px-4" : ""}
+          `}
+        >
+          <div className="mx-auto py-4 text-center flex items-center flex-col">
+            <p className="text-2xl font-semibold text-secondaryFont">
               {guest.asistencia === "si"
                 ? `¡Nos vemos en la boda, ${guest.fullName}!`
                 : `Lamentamos que no puedas acompañarnos, ${guest.fullName}.`}
