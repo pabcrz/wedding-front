@@ -33,7 +33,7 @@ export default function ShowLocation() {
               className="hover:opacity-60"
             >
               <img
-                src="./public/icons/amazon.svg"
+                src="/icons/amazon.svg"
                 alt="amazon logo"
                 width="100"
                 height="100"
@@ -47,7 +47,7 @@ export default function ShowLocation() {
               className="hover:opacity-60"
             >
               <img
-                src="./public/icons/liverpool-logo.svg"
+                src="/icons/liverpool-logo.svg"
                 alt="Liverpool logo"
                 width="150"
                 height="100"

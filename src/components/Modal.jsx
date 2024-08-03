@@ -70,11 +70,7 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
           onClick={handleClose}
           className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 hover:bg-gray-200"
         >
-          <img
-            src="./public/icons/close.svg"
-            alt="close icon"
-            className="size-5"
-          />
+          <img src="/icons/close.svg" alt="close icon" className="size-5" />
         </button>
         <div className="text-center">
           <div className="mx-auto py-4 w-full">
