@@ -1,39 +1,26 @@
 ---
-import Galery from "../components/Galery.astro";
+import { Image } from "astro:assets";
+import info from "/src/images/InfoTransparent.png";
+import Gallery from "./Gallery";
 ---
 
-<section
-  class="flex min-h-dvh md:min-h-max w-full bg-mainBG text-mainFont p-4 justify-center relative"
+<header
+  class="flex flex-col w-full bg-[#f0eeee] text-mainFont py-10 pt-24 md:p-10 md:pt-24 items-center justify-center md:justify-normal relative"
 >
-  <header
-    class="w-full sm:w-[70%] md:w-full h-full xl:max-w-[1200px] items-center flex flex-col gap-4"
+  <div
+    class="rounded-full absolute top-10 md:top-10 bg-white bg-opacity-[0.83] flex flex-col justify-center size-48 z-20"
   >
-    <h1 class="font-medium text-2xl p-4 md:text-4xl">Nuestra Boda</h1>
-    <div
-      class="flex flex-col-reverse items-center justify-evenly h-1/2 md:min-h-[65%] md:h-full md:flex-row w-full py-6"
-    >
-      <div class="md:w-[40%] flex justify-center contet">
-        <Galery />
-      </div>
-      <div class="text-center md:w-[60%] p-4 flex flex-col-reverse md:flex-col">
-        <p class="self-center place-self-start">12.10.2024 - 14:00 hrs</p>
-        <h2
-          class="self-center place-content-evenly font-normal text-4xl md:text-6xl py-6"
-        >
-          Carlos y Arely
-        </h2>
-      </div>
-    </div>
-    <p class="text-black md:hidden text-center px-4">
-      ¡Estamos felices de poder compartir con ustedes este momento tan especial
-      para nosotros!
-    </p>
-  </header>
-  <button
-    class="text-white bg-mainFont p-2 px-4 h-11 rounded font-bold fixed bottom-6 md:top-7 md:right-5"
-    >Confirmar asistencia</button
+    <Image src={info} alt="info" />
+  </div>
+  <div
+    class="min-h-[50dvh] w-full xl:max-w-[1200px] flex flex-col items-center p-1 md:p-3 bg-white"
   >
-</section>
+    <Gallery client:only="react" />
+  </div>
+  <button class="text-white bg-mainFont p-2 px-4 h-11 rounded mt-10"
+    >Confirmar asistencia
+  </button>
+</header>
 
 <style>
   button,
