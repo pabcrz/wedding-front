@@ -8,7 +8,7 @@ import MyChart from "./Chart";
 
 import normalizeText from "../lib/normalizeText";
 import guestCategories from "../lib/filterGuest";
-import { allGuestCategories } from "../lib/filterGuest";
+import { allGuestCategories, guestFilter } from "../lib/filterGuest";
 
 export default function AdminGuests() {
   const [guests, setGuests] = useState([]);
@@ -16,6 +16,9 @@ export default function AdminGuests() {
   const [open, setOpen] = useState(false);
   const [guest, setGuest] = useState({});
   const [confirmation, setConfirmation] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [selectedButton, setSelectedButton] = useState("Todos");
+
   const [guestChart, setGuestChart] = useState({
     man: 0,
     woman: 0,
@@ -29,11 +32,20 @@ export default function AdminGuests() {
       success: (data) => {
         setGuests(data.data.guests);
         console.log(data.data.guests);
+        setLoading(false);
+        setSelectedButton("Todos");
         return `Invitados disponibles...`;
       },
       error: "Error",
     });
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      // Ejecutar la función automáticamente cuando los datos están cargados
+      handleGuests(); // Llama a la función handleGuests para ejecutar automáticamente
+    }
+  }, [loading]);
 
   const initialChartData = allGuestCategories(guests);
   // console.log("initialChartData:", initialChartData);
@@ -52,86 +64,96 @@ export default function AdminGuests() {
     setGuest(elementGuest);
   }
 
-  function HandleGuests() {
-    const chartData = allGuestCategories(guests);
-    const data = {
-      man: chartData.man.length,
-      woman: chartData.woman.length,
-      boys: chartData.boys.length,
-      girls: chartData.boys.length,
+  function handleGuests(filter = null) {
+    const guestsData = guestFilter(guests, filter);
+    const data = filter
+      ? guestCategories(guests, filter)
+      : allGuestCategories(guests);
+    const chartData = {
+      man: data.man.length,
+      woman: data.woman.length,
+      boys: data.boys.length,
+      girls: data.boys.length,
     };
-    console.log(data);
-    return setGuestChart(data);
+    // console.log(data);
+    console.log(`Guests Data: ${guestsData}`);
+    /*  chartData.total =
+      chartData.man + chartData.woman + chartData.boys + chartData.girls;
+    console.log("handleGuests ~ total:", chartData.total); */
+    setGuestChart(chartData);
   }
 
-  function HandleGuestsYes() {
-    const chartData = guestCategories(guests, "si");
-    const data = {
-      man: chartData.man.length,
-      woman: chartData.woman.length,
-      boys: chartData.boys.length,
-      girls: chartData.boys.length,
-    };
-    setGuestChart(data);
-    console.log(data);
-  }
+  const getButtonClasses = (buttonType) =>
+    `w-[80%] border rounded hover:bg-red-400 hover:text-white p-2 ${
+      selectedButton === buttonType ? "bg-red-400 text-white" : ""
+    }`;
 
-  function HandleGuestsNo() {
-    const chartData = guestCategories(guests, "no");
-    const data = {
-      man: chartData.man.length,
-      woman: chartData.woman.length,
-      boys: chartData.boys.length,
-      girls: chartData.boys.length,
-    };
-    setGuestChart(data);
-    console.log(data);
-  }
-
-  function HandleGuestsSin() {
-    const chartData = guestCategories(guests, "sin confirmar");
-    const data = {
-      man: chartData.man.length,
-      woman: chartData.woman.length,
-      boys: chartData.boys.length,
-      girls: chartData.boys.length,
-    };
-    setGuestChart(data);
-    console.log(guestChart);
-  }
   return (
     <>
       <Toaster richColors position="bottom-right" />
-      <div className="grid grid-cols-[200px_2fr_1fr] p-4 h-dvh">
-        <div className="flex flex-col items-center justify-center gap-3">
-          <button
-            className="w-[80%] border hover:bg-red-400 rounded hover:text-white"
-            onClick={HandleGuests}
-          >
-            Invitados
-          </button>
-          <button
-            className="w-[80%] border hover:bg-red-400 rounded hover:text-white"
-            onClick={HandleGuestsYes}
-          >
-            Invitados que asistiran
-          </button>
-          <button
-            className="w-[80%] border hover:bg-red-400 rounded hover:text-white"
-            onClick={HandleGuestsNo}
-          >
-            Invitados que no asistiran
-          </button>
-          <button
-            className="w-[80%] border hover:bg-red-400 rounded hover:text-white"
-            onClick={HandleGuestsSin}
-          >
-            Invitados que sin confirmar
-          </button>
-        </div>
+
+      <div className="grid grid-cols-[2fr_1fr] p-4 h-dvh">
         <div>
-          <p>Graficos</p>
+          <div className="flex items-center justify-center gap-3 py-4">
+            <button
+              className={getButtonClasses("Todos")}
+              onMouseOver={() => {
+                handleGuests();
+                setSelectedButton("Todos");
+              }}
+            >
+              Invitados
+            </button>
+            <button
+              className={getButtonClasses("si")}
+              onMouseOver={() => {
+                handleGuests("si");
+                setSelectedButton("si");
+              }}
+            >
+              Invitados que si asistiran
+            </button>
+            <button
+              className={getButtonClasses("no")}
+              onMouseOver={() => {
+                handleGuests("no");
+                setSelectedButton("no");
+              }}
+            >
+              Invitados que no asistiran
+            </button>
+            <button
+              className={getButtonClasses("sin confirmar")}
+              onMouseOver={() => {
+                handleGuests("sin confirmar");
+                setSelectedButton("sin confirmar");
+              }}
+            >
+              Invitados sin confirmar
+            </button>
+          </div>
           {guestChart && <MyChart {...guestChart} />}
+          {selectedButton === "Todos" && (
+            <p>
+              {selectedButton} los invitados: {guestChart.total}
+            </p>
+          )}
+          {selectedButton === "sin confirmar" && (
+            <p>
+              Invitados {selectedButton}: {guestChart.total}
+            </p>
+          )}
+          {selectedButton === "si" && (
+            <p>
+              Invitados que {selectedButton} asistiran: {guestChart.total}
+            </p>
+          )}
+          {selectedButton === "no" && (
+            <p>
+              Invitados que {selectedButton} asistiran: {guestChart.total}
+            </p>
+          )}
+          <ul></ul>
         </div>
         <div className="max-h-dvh overflow-y-scroll">
           <div className="flex flex-col justify-center items-center gap-3">
