@@ -4,28 +4,28 @@ import "react-image-gallery/styles/css/image-gallery.css";
 export default function Gallery() {
   const images = [
     {
-      original: "/src/images/1.png",
+      original: "/images/1.png",
     },
     {
-      original: "/src/images/2.png",
+      original: "/images/2.png",
     },
     {
-      original: "/src/images/3.png",
+      original: "/images/3.png",
     },
     {
-      original: "/src/images/4.png",
+      original: "/images/4.png",
     },
     {
-      original: "/src/images/5.png",
+      original: "/images/5.png",
     },
     {
-      original: "/src/images/6.png",
+      original: "/images/6.png",
     },
     {
-      original: "/src/images/7.png",
+      original: "/images/7.png",
     },
     {
-      original: "/src/images/8.png",
+      original: "/images/8.png",
     },
   ];
 
