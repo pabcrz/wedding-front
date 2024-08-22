@@ -1,24 +1,32 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Guests from "../components/Guests";
+import bg from "../../public/images/bg-assist.png";
+import mobile from "../../public/images/bg-assist-mobile-2.png";
+import info from "/public/images/InfoTransparent.png";
+import ring from "/public/icons/ring.svg";
+import { Image } from "astro:assets";
 ---
 
 <BaseLayout title="Confirmar Asistencia">
   <main class="flex flex-col w-full h-dvh items-center">
-    <section class="w-full bg-mainBG text-center text-mainFont">
-      <h1 class="font-medium text-2xl p-4 md:text-4xl">Nuestra Boda</h1>
+    <section class="w-full flex justify-center items-center relative">
       <div
-        class="flex flex-col-reverse items-center justify-evenly md:flex-row w-full py-6"
+        class="rounded-full absolute bg-white flex flex-col justify-center size-48"
       >
-        <div class="text-center p-4 flex flex-col-reverse md:flex-col">
-          <p class="self-center place-self-start">12.10.2024 - 14:00 hrs</p>
-          <h2
-            class="self-center place-content-evenly font-normal text-4xl md:text-6xl py-6"
-          >
-            Carlos y Arely
-          </h2>
-        </div>
+        <Image src={ring} alt="ring" class="w-full absolute z-20" />
+        <Image src={info} alt="info" />
       </div>
+      <Image
+        src={bg}
+        alt="foto de Arely y Carlos"
+        class="object-cover min-h-60 hidden md:block"
+      />
+      <Image
+        src={mobile}
+        alt="foto de Arely y Carlos"
+        class="object-cover min-h-60 md:hidden"
+      />
     </section>
     <section class="p-4 w-full md:max-w-screen-md h-full flex flex-col">
       <h1 class="text-center text-3xl pb-3 text-secondaryFont">

@@ -5,7 +5,7 @@ import Gallery from "./Gallery";
 ---
 
 <header
-  class="flex flex-col w-full bg-[#f0eeee] text-mainFont py-10 pt-24 md:p-10 md:pt-24 items-center justify-center md:justify-normal relative"
+  class="flex flex-col w-full gap-10 bg-[#f0eeee] text-mainFont py-10 pt-24 md:p-10 md:pt-24 items-center justify-center md:justify-normal relative"
 >
   <div
     class="rounded-full absolute top-10 md:top-10 bg-white bg-opacity-[0.83] flex flex-col justify-center size-48 z-20"
@@ -13,11 +13,11 @@ import Gallery from "./Gallery";
     <Image src={info} alt="info" />
   </div>
   <div
-    class="min-h-[50dvh] w-full xl:max-w-[1200px] flex flex-col items-center p-1 md:p-3 bg-white"
+    class="min-h-[50vh] w-full xl:max-w-[1200px] flex flex-col items-center p-1 md:p-3 bg-white"
   >
     <Gallery client:only="react" />
   </div>
-  <button class="text-white bg-mainFont p-2 px-4 h-11 rounded mt-10"
+  <button class="text-white bg-mainFont p-2 px-4 h-11 rounded text-lg"
     >Confirmar asistencia
   </button>
 </header>
