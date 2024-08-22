@@ -34,7 +34,7 @@ export default function Gallery() {
       showNav={false}
       showBullets={true}
       autoPlay={true}
-      slideInterval={3500}
+      slideInterval={4500}
       renderItem={(item) => (
         <div className="w-full h-full">
           <img
