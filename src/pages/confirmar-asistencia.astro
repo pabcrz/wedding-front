@@ -29,9 +29,15 @@ import { Image } from "astro:assets";
       />
     </section>
     <section class="p-4 w-full md:max-w-screen-md h-full flex flex-col">
-      <h1 class="text-center text-3xl pb-3 text-secondaryFont">
+      <h1 class="text-center text-3xl pt-2 text-secondaryFont">
         Confirmar Asistencia
       </h1>
+      <p class="text-sm p-4 text-center">
+        Este día es especial para nosotros, y más aún si tú estás presente. Por
+        eso, te pedimos que <strong
+          >confirmes tu asistencia antes del 15 de septiembre.</strong
+        >
+      </p>
       <Guests client:only="react" />
     </section>
   </main>
