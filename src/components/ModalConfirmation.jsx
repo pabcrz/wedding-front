@@ -41,7 +41,7 @@ export default function ModalConfirmation({ open, onClose, guest }) {
           `}
         >
           <div className="mx-auto py-4 text-center flex items-center flex-col">
-            <p className="text-2xl font-semibold text-secondaryFont">
+            <p className="text-2xl font-semibold text-secondaryFont px-3">
               {guest.asistencia === "si"
                 ? `¡Nos vemos en la boda, ${guest.fullName}!`
                 : `Lamentamos que no puedas acompañarnos, ${guest.fullName}.`}
