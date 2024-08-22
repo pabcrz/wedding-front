@@ -20,6 +20,12 @@ importers:
       '@fontsource-variable/domine':
         specifier: ^5.0.19
         version: 5.0.19
+      '@fontsource-variable/montserrat':
+        specifier: ^5.0.20
+        version: 5.0.20
+      '@fontsource/alice':
+        specifier: ^5.0.14
+        version: 5.0.14
       '@fontsource/zen-kaku-gothic-new':
         specifier: ^5.0.19
         version: 5.0.19
@@ -410,6 +416,12 @@ packages:
 
   '@fontsource-variable/domine@5.0.19':
     resolution: {integrity: sha512-9HVWvAz0F1c7Vj3V1W5INwYuSfpjrsB4hWyfccbrNYvS6hKd4fHrrQDFlswemtPOqYh4Mm2iFjWY4Ow0dd1x5Q==}
+
+  '@fontsource-variable/montserrat@5.0.20':
+    resolution: {integrity: sha512-/D+j5M68+GnSbi1A0K+0qnVpnu8O2rd5zsmE7COgD7EK/G9tNEE8emcg7+HkKsyViMmYuQ+t4o0FmB6pU/aBRQ==}
+
+  '@fontsource/alice@5.0.14':
+    resolution: {integrity: sha512-xLuanR5eSuZSAEtIiRSay+oHE+aToG2YhtH9MZg7eGL9szRnpxwdxeRgLfR+95x6QkBOEhytPGkqm5iscaE5Cw==}
 
   '@fontsource/zen-kaku-gothic-new@5.0.19':
     resolution: {integrity: sha512-Dp27ZFZmimmU02OHxXDfXwPDLxQHfFy4lIwG1L/WeU7/dhvIJE3+7AogtgZH7Ya86DIK1GdvWf3ts9lzJZ7beQ==}
@@ -2652,6 +2664,10 @@ snapshots:
     optional: true
 
   '@fontsource-variable/domine@5.0.19': {}
+
+  '@fontsource-variable/montserrat@5.0.20': {}
+
+  '@fontsource/alice@5.0.14': {}
 
   '@fontsource/zen-kaku-gothic-new@5.0.19': {}
 

@@ -13,9 +13,6 @@ export default function Gallery() {
       original: "/images/3.png",
     },
     {
-      original: "/images/4.png",
-    },
-    {
       original: "/images/5.png",
     },
     {
@@ -36,14 +33,14 @@ export default function Gallery() {
       showFullscreenButton={false}
       showNav={false}
       showBullets={true}
-      autoPlay={false}
+      autoPlay={true}
       slideInterval={3500}
       renderItem={(item) => (
         <div className="w-full h-full">
           <img
             src={item.original}
             alt=""
-            className="shadow-lg min-h-[50dvh] object-cover"
+            className="shadow-lg min-h-[50vh] object-cover"
           />
         </div>
       )}
