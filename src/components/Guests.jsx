@@ -12,24 +12,26 @@ export default function Guests() {
   const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
-    toast.promise(connection(), {
-      loading: "Cargando invitados...",
-      success: (data) => {
-        return `Invitados disponibles...`;
-      },
-      error: "Error",
-    });
-
-    connection()
-      .then((data) => {
-        setGuests(data.data.guests);
-        console.log(data.data.guests);
-        // toast.success("Invitados disponibles.");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Error al cargar los invitados.");
+    if (!confirmation) {
+      toast.promise(connection(), {
+        loading: "Cargando invitados...",
+        success: (data) => {
+          return `Invitados disponibles...`;
+        },
+        error: "Error",
       });
+
+      connection()
+        .then((data) => {
+          setGuests(data.data.guests);
+          console.log(data.data.guests);
+          // toast.success("Invitados disponibles.");
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Error al cargar los invitados.");
+        });
+    }
   }, [confirmation]);
 
   // guest.fullName.toLowerCase().includes(search.toLowerCase())
@@ -82,7 +84,7 @@ export default function Guests() {
       <p className="text-2xl p-4">Selecciona tu nombre: </p>
       <div className="flex flex-col md:flex-row md:flex-wrap gap-3 py-4 p-2 shadow-lg min-h-10 rounded-lg overflow-auto">
         {search &&
-          search.length >= 3 &&
+          search.length >= 7 &&
           newGuests.map((elementGuest, i) => {
             return (
               <a
