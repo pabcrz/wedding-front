@@ -39,7 +39,7 @@ export default function Gallery() {
         <div className="w-full h-full">
           <img
             src={item.original}
-            alt=""
+            alt="foto de Carlos y Arely"
             className="shadow-lg min-h-[50vh] object-cover"
           />
         </div>
