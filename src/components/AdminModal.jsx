@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { confirmGuest } from "../pages/api/data";
 import normalizeText from "../lib/normalizeText";
 
-export default function Modal({ open, onClose, guest, onConfirm }) {
+export default function AdminModal({ open, onClose, guest }) {
   const [confirmation, setConfirmation] = useState(false);
   const [writeName, setWriteName] = useState("");
   const [confirmName, setConfirmName] = useState("");
@@ -34,7 +34,6 @@ export default function Modal({ open, onClose, guest, onConfirm }) {
         error: "Error al enviar tu respuesta",
       });
       handleClose();
-      onConfirm();
     } else {
       alert(`Debes escribir: ${normalizeText(guest.fullName)}`);
       return false;
