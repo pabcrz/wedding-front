@@ -71,10 +71,10 @@ export default function MyChart({ man, woman, boys, girls }) {
             show: true,
           },
           data: [
-            { value: man, name: "Mujeres" },
+            { value: man, name: "Hombres" },
             { value: girls, name: "Niñas" },
             { value: boys, name: "Niños" },
-            { value: woman, name: "Hombres" },
+            { value: woman, name: "Mujeres" },
           ],
         },
       ],
@@ -89,6 +89,6 @@ export default function MyChart({ man, woman, boys, girls }) {
   }, [man, woman, boys, girls]);
 
   return (
-    <div id="main" ref={chartRef} style={{ width: "100%", height: "400px" }} />
+    <div id="main" ref={chartRef} style={{ width: "70%", height: "400px" }} />
   );
 }
