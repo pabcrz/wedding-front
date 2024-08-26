@@ -1,14 +1,16 @@
 import { connection } from "../pages/api/data";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import { Toaster, toast } from "sonner";
 
 import MyChart from "./Chart";
 import AdminGuests from "./AdminGuests";
-import ShowGuests from "./ShowGuests";
+import { RefreshGuests } from "../context/RefreshGuests";
 
-import { categories, guestFiltered } from "../lib/filterGuest";
+import { filterGuests } from "../lib/filterGuest";
 
 export default function AdminPanel() {
+  const [refreshGuests, setRefreshGuests] = useState(false);
+
   const [guests, setGuests] = useState([]);
   const [guestsFiltered, setGuestsFiltered] = useState([]);
 
@@ -27,14 +29,15 @@ export default function AdminPanel() {
       loading: "Cargando invitados...",
       success: (data) => {
         setGuests(data.data.guests);
-        console.log(data.data.guests);
         setLoading(false);
+        const dataGuests = filterGuests(data.data.guests);
+        setGuestsFiltered(dataGuests.guestsAsist);
         setSelectedButton("Todos");
         return `Invitados disponibles...`;
       },
       error: "Error",
     });
-  }, []);
+  }, [refreshGuests]);
 
   useEffect(() => {
     if (!loading) {
@@ -43,20 +46,18 @@ export default function AdminPanel() {
     }
   }, [loading]);
 
-  const initialChartData = categories(guests);
-  // console.log("initialChartData:", initialChartData);
-
-  function handleGuests(asistencia = null) {
-    const data = guestFiltered(guests, asistencia);
+  function handleGuests(asistencia) {
+    const data = filterGuests(guests, asistencia);
     const chartData = {
       man: data.man.length,
       woman: data.woman.length,
       boys: data.boys.length,
       girls: data.boys.length,
     };
-    console.log(data.guestsAsist);
     setGuestsFiltered(data.guestsAsist);
+    console.log(data.guestsAsist);
     setGuestChart(chartData);
+    guestsFiltered;
   }
 
   const getButtonClasses = (buttonType) =>
@@ -64,87 +65,113 @@ export default function AdminPanel() {
       selectedButton === buttonType ? "bg-red-400 text-white" : ""
     }`;
 
+  const GuestInfo = ({ guestChart }) => (
+    <div className="flex gap-3">
+      <p className="text-lg">
+        Mujeres: <strong>{guestChart.woman}</strong>
+      </p>
+      <p className="text-lg">
+        Hombres: <strong>{guestChart.man}</strong>
+      </p>
+      <p className="text-lg">
+        Niñas: <strong>{guestChart.girls}</strong>
+      </p>
+      <p className="text-lg">
+        Niños: <strong>{guestChart.boys}</strong>
+      </p>
+    </div>
+  );
+
   return (
     <>
       <Toaster richColors position="bottom-right" />
 
-      <div className="flex flex-col justify-center p-4 min-w-full">
-        <p>Aqui puedes ver los invitados: </p>
-        <div className="flex">
-          <div className="flex flex-col items-center justify-center gap-3 py-4 w-80">
-            <button
-              className={getButtonClasses("Todos")}
-              onMouseOver={() => {
-                handleGuests();
-                setSelectedButton("Todos");
-              }}
-            >
-              Totales
-            </button>
-            <button
-              className={getButtonClasses("si")}
-              onMouseOver={() => {
-                handleGuests("si");
-                setSelectedButton("si");
-              }}
-            >
-              Que si asistiran
-            </button>
-            <button
-              className={getButtonClasses("no")}
-              onMouseOver={() => {
-                handleGuests("no");
-                setSelectedButton("no");
-              }}
-            >
-              Que no asistiran
-            </button>
-            <button
-              className={getButtonClasses("sin confirmar")}
-              onMouseOver={() => {
-                handleGuests("sin confirmar");
-                setSelectedButton("sin confirmar");
-              }}
-            >
-              Sin confirmar
-            </button>
+      <RefreshGuests.Provider value={{ refreshGuests, setRefreshGuests }}>
+        <div className="flex flex-col justify-center p-4 min-w-full">
+          <p>Aqui puedes ver los invitados: </p>
+          <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col items-center justify-center gap-3 py-4 w-80">
+              <button
+                className={getButtonClasses("Todos")}
+                onClick={() => {
+                  handleGuests();
+                  setSelectedButton("Todos");
+                }}
+              >
+                Totales
+              </button>
+              <button
+                className={getButtonClasses("si")}
+                onClick={() => {
+                  handleGuests("si");
+                  setSelectedButton("si");
+                }}
+              >
+                Que si asistiran
+              </button>
+              <button
+                className={getButtonClasses("no")}
+                onClick={() => {
+                  handleGuests("no");
+                  setSelectedButton("no");
+                }}
+              >
+                Que no asistiran
+              </button>
+              <button
+                className={getButtonClasses("sin confirmar")}
+                onClick={() => {
+                  handleGuests("sin confirmar");
+                  setSelectedButton("sin confirmar");
+                }}
+              >
+                Sin confirmar
+              </button>
+            </div>
+            {guestChart && <MyChart {...guestChart} />}
           </div>
-          {guestChart && <MyChart {...guestChart} />}
+
+          {selectedButton === "Todos" && (
+            <>
+              <p>
+                {selectedButton} los invitados:{" "}
+                <strong>{guestsFiltered.length} </strong>
+              </p>
+              <GuestInfo guestChart={guestChart} />
+            </>
+          )}
+
+          {selectedButton === "sin confirmar" && (
+            <>
+              <p>
+                Invitados {selectedButton}: {guestsFiltered.length}
+              </p>
+              <GuestInfo guestChart={guestChart} />
+            </>
+          )}
+
+          {selectedButton === "si" && (
+            <>
+              <p>
+                Invitados que {selectedButton} asistiran:{" "}
+                {guestsFiltered.length}
+              </p>
+              <GuestInfo guestChart={guestChart} />
+            </>
+          )}
+
+          {selectedButton === "no" && (
+            <>
+              <p>
+                Invitados que {selectedButton} asistiran:{" "}
+                {guestsFiltered.length}
+              </p>
+              <GuestInfo guestChart={guestChart} />
+            </>
+          )}
         </div>
-
-        {selectedButton === "Todos" && (
-          <>
-            <p>
-              {selectedButton} los invitados: {guestsFiltered.length}
-            </p>
-          </>
-        )}
-
-        {selectedButton === "sin confirmar" && (
-          <>
-            <p>
-              Invitados {selectedButton}: {guestsFiltered.length}
-            </p>
-          </>
-        )}
-
-        {selectedButton === "si" && (
-          <>
-            <p>
-              Invitados que {selectedButton} asistiran: {guestFiltered.length}
-            </p>
-          </>
-        )}
-
-        {selectedButton === "no" && (
-          <>
-            <p>
-              Invitados que {selectedButton} asistiran: {guestsFiltered.length}
-            </p>
-          </>
-        )}
-      </div>
-      <AdminGuests guests={guestsFiltered} />
+        <AdminGuests guests={guestsFiltered} />
+      </RefreshGuests.Provider>
     </>
   );
 }

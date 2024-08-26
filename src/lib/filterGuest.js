@@ -35,7 +35,7 @@ export function categories(guests) {
   return filterGuests;
 }
 
-export function guestFiltered(guests, asistencia) {
+export function filterGuests(guests, asistencia) {
   let guestsAsist = guests;
 
   if (asistencia) {

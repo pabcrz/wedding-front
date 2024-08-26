@@ -89,6 +89,11 @@ export default function MyChart({ man, woman, boys, girls }) {
   }, [man, woman, boys, girls]);
 
   return (
-    <div id="main" ref={chartRef} style={{ width: "70%", height: "400px" }} />
+    <div
+      id="main"
+      ref={chartRef}
+      style={{ width: "70%", height: "400px" }}
+      className="hidden md:block"
+    />
   );
 }

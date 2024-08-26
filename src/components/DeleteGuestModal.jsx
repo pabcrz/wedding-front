@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "sonner";
-import { confirmGuest } from "../pages/api/data";
+import { deleteGuest } from "../pages/api/data";
 import normalizeText from "../lib/normalizeText";
+import { RefreshGuests } from "../context/RefreshGuests";
 
-export default function AdminModal({ open, onClose, guest }) {
+export default function DeleteGuestModal({ open, onClose, guest }) {
+  const { refreshGuests, setRefreshGuests } = useContext(RefreshGuests);
+
   const [confirmation, setConfirmation] = useState(false);
   const [writeName, setWriteName] = useState("");
   const [confirmName, setConfirmName] = useState("");
@@ -11,8 +14,7 @@ export default function AdminModal({ open, onClose, guest }) {
 
   function handleNo() {
     setConfirmation(true);
-    setWriteName(normalizeText(guest.fullName));
-    setAsist("no");
+    handleClose();
   }
 
   function handleYes() {
@@ -24,16 +26,15 @@ export default function AdminModal({ open, onClose, guest }) {
   function handleConfirm(e) {
     e.preventDefault();
     if (confirmName === writeName) {
-      guest.asistencia = asist;
-      toast.promise(confirmGuest(guest), {
-        loading: "Confirmando...",
+      toast.promise(deleteGuest(guest._id), {
+        loading: "Eliminanado...",
         success: (data) => {
-          console.log(`${guest.fullName} ${guest.asistencia} asistira`);
-          return `Tu respuesta ha sido enviada...`;
+          console.log(`Invitado: ${guest.fullName} ha sido eliminado`);
+          handleClose();
+          return `Invitado eliminado exitosamente.`;
         },
-        error: "Error al enviar tu respuesta",
+        error: "Error al eliminar invitado.",
       });
-      handleClose();
     } else {
       alert(`Debes escribir: ${normalizeText(guest.fullName)}`);
       return false;
@@ -74,10 +75,7 @@ export default function AdminModal({ open, onClose, guest }) {
         <div className="text-center">
           <div className="mx-auto py-4 w-full">
             {!confirmation && (
-              <p className="text-lg">
-                ¿Quieres cambiar la asistencia de{" "}
-                <strong>{guest.fullName}?</strong>
-              </p>
+              <p className="text-xl">¿Deseas eliminar a {guest.fullName}?</p>
             )}
           </div>
           <div className="flex gap-4">
@@ -101,8 +99,8 @@ export default function AdminModal({ open, onClose, guest }) {
               <div className="flex-col">
                 <p className="text-lg">
                   Para confirmar que
-                  <strong> {asist} asistirás</strong> escribe lo siguiente: "
-                  <strong>{writeName}</strong>"
+                  <strong> {asist} quieres eliminar,</strong> escribe lo
+                  siguiente: "<strong>{writeName}</strong>"
                 </p>
                 <form onSubmit={handleConfirm}>
                   <input
