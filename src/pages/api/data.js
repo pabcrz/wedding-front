@@ -14,10 +14,10 @@ export function addGuest(guest) {
     },
     body: JSON.stringify({
       name: guest.nombre,
-      lastName: guest.apellido,
+      apellido: guest.apellido,
       sexo: guest.sexo,
       categoria: guest.categoria,
-      family: guest.family,
+      familia: guest.familia,
     }),
   });
 }
@@ -32,5 +32,11 @@ export function confirmGuest(guest) {
     body: JSON.stringify({
       asistencia: guest.asistencia,
     }),
+  });
+}
+
+export function deleteGuest(guestId) {
+  return fetch(`${API_URL}/guests/${guestId}`, {
+    method: "DELETE",
   });
 }

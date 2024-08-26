@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+
+import { RefreshGuests } from "../context/RefreshGuests";
 
 import normalizeText from "../lib/normalizeText";
-import Modal from "./Modal";
-import ModalConfirmation from "./ModalConfirmation";
 import ShowGuests from "./ShowGuests";
 
 export default function AdminGuests({ guests }) {
@@ -33,7 +33,12 @@ export default function AdminGuests({ guests }) {
       </div>
       <p className="text-2xl p-4">Selecciona un nombre: </p>
       <div className="flex flex-col gap-3 py-4 p-2 shadow-lg min-h-10 max-h-[85dvh] rounded-lg overflow-y-scroll">
-        <ShowGuests guests={newGuests} onclick={() => setOpen(true)} />
+        <ShowGuests
+          guests={newGuests}
+          onclick={() => {
+            setOpen(true);
+          }}
+        />
       </div>
     </div>
   );
