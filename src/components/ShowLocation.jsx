@@ -9,7 +9,7 @@ export default function ShowLocation() {
             José María Morelos y Pavón 1, La Resurrección.
           </h3>
           <h3 className="text-secondaryFont text-xl">
-            C.P. 56200, Tulantongo, México.
+            C.P. 56200, Texcoco, México.
           </h3>
         </div>
         <iframe
