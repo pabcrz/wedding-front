@@ -35,6 +35,16 @@ export function confirmGuest(guest) {
   });
 }
 
+export function updateGuest(guest) {
+  return fetch(`${API_URL}/guests/${guest._id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(guest),
+  });
+}
+
 export function deleteGuest(guestId) {
   return fetch(`${API_URL}/guests/${guestId}`, {
     method: "DELETE",

@@ -3,7 +3,6 @@ import DeleteGuestModal from "./DeleteGuestModal";
 import { useContext, useState } from "react";
 
 import { RefreshGuests } from "../context/RefreshGuests";
-import { flushSync } from "react-dom";
 
 export default function ShowGuests({ guests }) {
   const { refreshGuests, setRefreshGuests } = useContext(RefreshGuests);
@@ -25,7 +24,7 @@ export default function ShowGuests({ guests }) {
 
   return (
     <>
-      <div className="flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-1 ">
         {guests.map((elementGuest, i) => {
           return (
             <a
@@ -79,11 +78,6 @@ export default function ShowGuests({ guests }) {
         open={openDelete}
         onClose={() => {
           setOpenDelete(false);
-          if (refreshGuests) {
-            setRefreshGuests(false);
-          } else {
-            setRefreshGuests(true);
-          }
         }}
         guest={guest}
       ></DeleteGuestModal>

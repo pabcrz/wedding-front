@@ -20,12 +20,17 @@ export default function DeleteGuestModal({ open, onClose, guest }) {
   function handleYes() {
     setConfirmation(true);
     setWriteName(normalizeText(guest.fullName));
-    setAsist("si");
   }
 
   function handleConfirm(e) {
     e.preventDefault();
     if (confirmName === writeName) {
+      setAsist("si");
+      if (refreshGuests) {
+        setRefreshGuests(false);
+      } else {
+        setRefreshGuests(true);
+      }
       toast.promise(deleteGuest(guest._id), {
         loading: "Eliminanado...",
         success: (data) => {

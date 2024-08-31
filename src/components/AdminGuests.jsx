@@ -1,7 +1,5 @@
 import { useContext, useState } from "react";
 
-import { RefreshGuests } from "../context/RefreshGuests";
-
 import normalizeText from "../lib/normalizeText";
 import ShowGuests from "./ShowGuests";
 
