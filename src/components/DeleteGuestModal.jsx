@@ -23,6 +23,7 @@ export default function DeleteGuestModal({ open, onClose, guest }) {
   }
 
   function handleConfirm(e) {
+    e.preventDefault();
     if (confirmName === writeName) {
       setAsist("si");
       toast.promise(deleteGuest(guest._id), {
@@ -106,7 +107,7 @@ export default function DeleteGuestModal({ open, onClose, guest }) {
                   <strong> {asist} quieres eliminar,</strong> escribe lo
                   siguiente: "<strong>{writeName}</strong>"
                 </p>
-                <form onSubmit={handleConfirm}>
+                <form onSubmit={() => handleConfirm()}>
                   <input
                     type="text"
                     className="border-2 rounded-sm px-2 m-3 focus:outline-none border-mainBG"
