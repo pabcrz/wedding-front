@@ -1,38 +1,35 @@
 import { useState, useEffect, useContext } from "react";
 import { toast } from "sonner";
-import { updateGuest } from "../pages/api/data";
+import { addGuest } from "../pages/api/data";
 
 import { RefreshGuests } from "../context/RefreshGuests";
 
-export default function AdminModal({ open, onClose, guest }) {
+export default function AddGuest({ open, onClose }) {
   const { refreshGuests, setRefreshGuests } = useContext(RefreshGuests);
 
   const [confirmation, setConfirmation] = useState(false);
   const [newInfo, setNewInfo] = useState({
-    _id: "",
     nombre: "",
     apellido: "",
-    categoria: "",
-    sexo: "",
+    categoria: "Adulto",
+    sexo: "Hombre",
     familia: "",
-    asistencia: "",
-    fullName: "",
+    asistencia: "sin confirmar",
   });
 
-  useEffect(() => {
-    if (guest) {
-      setNewInfo({
-        _id: guest._id,
-        nombre: guest.nombre || "",
-        apellido: guest.apellido || "",
-        categoria: guest.categoria || "",
-        sexo: guest.sexo || "",
-        familia: guest.familia || "",
-        asistencia: guest.asistencia || "",
-        fullName: guest.fullName || "",
-      });
-    }
-  }, [guest]);
+  const defaultGuest = {
+    nombre: "",
+    apellido: "",
+    categoria: "Adulto",
+    sexo: "Hombre",
+    familia: "",
+    asistencia: "sin confirmar",
+  };
+
+  /*  useEffect(() => {
+    setNewInfo(defaultGuest);
+  }, []); */
+
   function handleNo(e) {
     e.preventDefault();
     setConfirmation(true);
@@ -44,18 +41,19 @@ export default function AdminModal({ open, onClose, guest }) {
     setConfirmation(true);
     const newGuest = newInfo;
     console.log(newGuest);
-    toast.promise(updateGuest(newGuest), {
-      loading: "Confirmando...",
+    toast.promise(addGuest(newGuest), {
+      loading: "Guardando...",
       success: (data) => {
-        console.log(`${newInfo.fullName} actuliazado`);
+        console.log(`${newInfo.nombre} ${newInfo.apellido} ha sido guardado`);
         if (refreshGuests) {
           setRefreshGuests(false);
         } else {
           setRefreshGuests(true);
         }
-        return `Invitado actualizado.`;
+        return `Invitado agregado.`;
       },
-      error: "Error al actualizar invitado.",
+      error:
+        "Error al agregar invitado. Invitado existente o error de servidor.",
     });
     handleClose();
   }
@@ -63,28 +61,15 @@ export default function AdminModal({ open, onClose, guest }) {
   function handleClose() {
     onClose();
     setConfirmation(false);
+    setNewInfo(defaultGuest);
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "nombre") {
-      setNewInfo((prevGuest) => ({
-        ...prevGuest,
-        [name]: value,
-        fullName: value + " " + prevGuest.apellido,
-      }));
-    } else if (name === "apellido") {
-      setNewInfo((prevGuest) => ({
-        ...prevGuest,
-        [name]: value,
-        fullName: prevGuest.nombre + " " + value,
-      }));
-    } else {
-      setNewInfo((prevGuest) => ({
-        ...prevGuest,
-        [name]: value,
-      }));
-    }
+    setNewInfo((prevGuest) => ({
+      ...prevGuest,
+      [name]: value,
+    }));
   };
 
   const inputClasses =
@@ -119,11 +104,9 @@ export default function AdminModal({ open, onClose, guest }) {
         <div className="px-4">
           <div className="mx-auto py-4 w-full">
             <p className="text-lg text-center">
-              Editando Informacion de <br />
-              <strong>{" " + guest.fullName}</strong>
+              Agregar nuevo Invitado. <br />
             </p>
-            <form onSubmit={handleYes} className="text-black w-80">
-              {!confirmation && <></>}
+            <form onSubmit={() => handleYes()} className="text-black w-80">
               <div className="flex gap-4 flex-col">
                 <div className="flex flex-col justify-center gap-3">
                   <label htmlFor="nombre" className="flex flex-col text-lg">
@@ -134,6 +117,7 @@ export default function AdminModal({ open, onClose, guest }) {
                       name="nombre"
                       value={newInfo.nombre}
                       onChange={handleChange}
+                      required
                     />
                   </label>
                   <label htmlFor="apellido" className="flex flex-col text-lg">
@@ -144,6 +128,7 @@ export default function AdminModal({ open, onClose, guest }) {
                       name="apellido"
                       value={newInfo.apellido}
                       onChange={handleChange}
+                      required
                     />
                   </label>
                   <label htmlFor="familia" className="flex flex-col text-lg">
@@ -154,6 +139,7 @@ export default function AdminModal({ open, onClose, guest }) {
                       name="familia"
                       value={newInfo.familia}
                       onChange={handleChange}
+                      required
                     />
                   </label>
                   <label className="flex flex-col text-lg">
@@ -163,6 +149,7 @@ export default function AdminModal({ open, onClose, guest }) {
                       value={newInfo.categoria}
                       onChange={handleChange}
                       className="border-2 bg-transparent rounded-sm focus:outline-none border-mainBG px-1"
+                      required
                     >
                       <option value="Adulot">Adulto</option>
                       <option value="Niño">Niño</option>
@@ -176,6 +163,7 @@ export default function AdminModal({ open, onClose, guest }) {
                       value={newInfo.sexo}
                       onChange={handleChange}
                       className="border-2 bg-transparent rounded-sm focus:outline-none border-mainBG px-1"
+                      required
                     >
                       <option value="Hombre">Hombre</option>
                       <option value="Mujer">Mujer</option>
@@ -189,6 +177,7 @@ export default function AdminModal({ open, onClose, guest }) {
                       value={newInfo.asistencia}
                       onChange={handleChange}
                       className="border-2 bg-transparent rounded-sm focus:outline-none border-mainBG px-1"
+                      required
                     >
                       <option value="sin confirmar">sin confirmar</option>
                       <option value="si">si</option>
@@ -196,7 +185,7 @@ export default function AdminModal({ open, onClose, guest }) {
                     </select>
                   </label>
                 </div>
-                <p className="text-lg">¿Actualizar información?</p>
+                <p className="text-lg">¿Guardar Invitado?</p>
               </div>
               <div className="flex gap-4 px-14">
                 <button
