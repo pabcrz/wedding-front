@@ -12,13 +12,7 @@ export function addGuest(guest) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name: guest.nombre,
-      apellido: guest.apellido,
-      sexo: guest.sexo,
-      categoria: guest.categoria,
-      familia: guest.familia,
-    }),
+    body: JSON.stringify(guest),
   });
 }
 

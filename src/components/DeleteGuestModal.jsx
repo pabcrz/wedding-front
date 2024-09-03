@@ -23,19 +23,18 @@ export default function DeleteGuestModal({ open, onClose, guest }) {
   }
 
   function handleConfirm(e) {
-    e.preventDefault();
     if (confirmName === writeName) {
       setAsist("si");
-      if (refreshGuests) {
-        setRefreshGuests(false);
-      } else {
-        setRefreshGuests(true);
-      }
       toast.promise(deleteGuest(guest._id), {
         loading: "Eliminanado...",
         success: (data) => {
           console.log(`Invitado: ${guest.fullName} ha sido eliminado`);
           handleClose();
+          if (refreshGuests) {
+            setRefreshGuests(false);
+          } else {
+            setRefreshGuests(true);
+          }
           return `Invitado eliminado exitosamente.`;
         },
         error: "Error al eliminar invitado.",
