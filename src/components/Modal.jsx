@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { confirmGuest } from "../pages/api/data";
+import { confirmGuest } from "../lib/api";
 import normalizeText from "../lib/normalizeText";
 
 export default function Modal({ open, onClose, guest, onConfirm }) {

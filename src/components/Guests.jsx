@@ -1,4 +1,4 @@
-import { confirmGuest, connection } from "../pages/api/data";
+import { confirmGuest, connection } from "../lib/api";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "sonner";
 import Modal from "./Modal";

@@ -1,4 +1,4 @@
-import { connection } from "../pages/api/data";
+import { connection } from "../lib/api";
 import { useState, useEffect, useContext, createContext } from "react";
 import { Toaster, toast } from "sonner";
 

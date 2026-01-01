@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { toast } from "sonner";
-import { deleteGuest } from "../pages/api/data";
+import { deleteGuest } from "../lib/api";
 import normalizeText from "../lib/normalizeText";
 import { RefreshGuests } from "../context/RefreshGuests";
 

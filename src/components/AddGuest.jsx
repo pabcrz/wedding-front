@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { toast } from "sonner";
-import { addGuest } from "../pages/api/data";
+import { addGuest } from "../lib/api";
 
 import { RefreshGuests } from "../context/RefreshGuests";
 

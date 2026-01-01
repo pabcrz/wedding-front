@@ -24,10 +24,6 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^/api/data/?$",
-			"dest": "_render"
-		},
-		{
 			"src": "^/confirmar-asistencia/?$",
 			"dest": "_render"
 		},
